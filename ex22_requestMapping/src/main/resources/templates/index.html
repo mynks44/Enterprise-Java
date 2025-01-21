@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { max-width: 400px; margin: auto; }
+        input { margin: 5px 0; width: 100%; padding: 8px; }
+        input[type="submit"] { background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        input[type="submit"]:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h2>Enter Book Details</h2>
+    <form method="post" action="/formPost">
+        Book Name: <input type="text" name="bookName" required /><br>
+        Author: <input type="text" name="authorName" required /><br>
+        Date of Publication: <input type="date" name="publicationDate" required /><br>
+        <input type="submit" value="Go!" />
+    </form>
+</body>
+</html>
