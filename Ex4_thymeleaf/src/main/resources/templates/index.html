@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Song</title>
+</head>
+<body>
+<table>
+<tr th:each ="s: ${songlist}">
+<td th:text = "${s.id}"></td>
+<td th:text = "${s.title}"></td>
+<td th:text = "${s.artist}"></td>
+<td th:text = "${s.genre}"></td>
+<td th:text = "${s.type}"></td>
+</tr>
+</table>
+
+<form th:action ="@{/formPost}" method= "post" th:object = "${song}">
+Id:<input type="number" th:field="*{id}"/><br>
+Title:<input type="text" th:field="*{title}"/><br>
+Artist:<input type="text" th:field="*{artist}"/><br>
+
+Genres: <select th:field="*{genre}">
+        <option th:each="g : *{GENRES}" th:value="${g}" >
+        <h4 th:text="${g}"/>
+        </option>
+        </select><br>
+
+Type:<input type="radio" name="type" value="Old song" th:field="*{Type}">
+<lable th:for="${type}">Old Song</lable><br>
+
+Type:<input type="radio" name="type" value="New song" th:field="*{Type}">
+<lable th:for="${type}">New Song</lable>
+<input type="submit" name="Submit"/>
+
+</form>
+</body>
+</html>
