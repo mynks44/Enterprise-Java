@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Management</title>
+</head>
+<body>
+    <div>
+        <h1>Student Management</h1>
+        <form action="/insert" method="post">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="course">Course</label>
+                <input type="text" id="course" name="course" required>
+            </div>
+            <button type="submit">Add Student</button>
+        </form>
+        <hr>
+        <h2>Student List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.course}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
