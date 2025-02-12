@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    
+    <!-- Form for Adding Phones to Cart -->
+    <form action="/insertPhone" method="post">
+        <label for="model">Phone Model: </label>
+        <input type="text" id="model" name="model" required>
+        <label for="price">Phone Price: </label>
+        <input type="number" id="price" name="price" required>
+        <button type="submit">Add to Cart</button>
+    </form>
+
+    <h2>Your Cart:</h2>
+    <ul>
+        <!-- Display List of Phones -->
+        <th:block th:if="${phoneList != null}">
+            <ul>
+                <li th:each="phone : ${phoneList}">
+                    <span th:text="${phone.model}">Model Name</span> - 
+                    <span th:text="${phone.price}">Price</span>
+                </li>
+            </ul>
+        </th:block>
+        <th:block th:if="${phoneList == null}">
+            <p>Your cart is empty.</p>
+        </th:block>
+    </ul>
+</body>
+</html>
