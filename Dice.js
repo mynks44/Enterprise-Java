@@ -3,7 +3,6 @@
     const Dice = class Dice {
 
         constructor() {
-
             let args = arguments[0] || {};
 
             this.size = args.size || 3;
@@ -23,7 +22,6 @@
 
             this.initFaces();
             this.initPositions();
-
             this.face(this.value);
         }
 
@@ -95,7 +93,6 @@
                 this.cube.rotation.x = MD.NodeUtils.deg2rad(this.animation.starts[0] + rate * this.animation.distance[0]);
                 this.cube.rotation.y = MD.NodeUtils.deg2rad(this.animation.starts[1] + rate * this.animation.distance[1]);
                 this.cube.rotation.z = MD.NodeUtils.deg2rad(this.animation.starts[2] + rate * this.animation.distance[2]);
-
             } else {
                 this.cube.rotation.x += MD.NodeUtils.deg2rad(delta * this.animation.speed * MD.NodeUtils.randomFloat(1.5, 6.5, 2));
                 this.cube.rotation.y += MD.NodeUtils.deg2rad(delta * this.animation.speed * MD.NodeUtils.randomFloat(1.5, 6.5, 2));
@@ -179,16 +176,15 @@
             this.scene.remove(this.group);
         }
 
-        // ✅ ADDED: Manual control from console
+        // ✅ NEW METHOD: Set dice face instantly from console
         setFace(val) {
             this.face(val);
-            this.group.position.setY(this.position.y);
+            this.group.position.setY(this.position.y); // Reset to original height
             this.animation.on = false;
         }
-    }
+    };
 
-    // ✅ ADDED: Global dice instance holder
     MD.Dice = Dice;
-    MD.dice = null; // You must assign this manually after creating the instance
+    MD.dice = null;
 
 })();
