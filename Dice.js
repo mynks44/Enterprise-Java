@@ -1,7 +1,5 @@
 (() => {
-
     const Dice = class Dice {
-
         constructor() {
             let args = arguments[0] || {};
 
@@ -13,31 +11,23 @@
             this.rotation = args.rotation || 0;
             this.height = args.height || 2;
 
-            this.animation = {};
-            this.animation.on = false;
-            this.animation.duration = 500;
-            this.animation.target = 0;
-            this.animation.end = 0;
-            this.animation.speed = args.speed || 200;
+            this.animation = { on: false, duration: 500, target: 0, end: 0, speed: args.speed || 200 };
 
             this.initFaces();
             this.initPositions();
             this.face(this.value);
         }
 
-        shuffle(res, duration) {
-            return new Promise((ress, rej) => {
-                duration = duration || 1500;
+        shuffle(res, duration = 1500) {
+            return new Promise((ress) => {
                 let end = performance.now() + duration;
 
                 this.animation.duration = duration;
                 this.animation.end = end;
                 this.animation.target = res;
                 this.animation.height = new THREE.Vector3(0, this.position.y + this.height, 0);
-
                 this.animation.first = false;
                 this.animation.on = true;
-
                 this.animation.promise = ress;
             });
         }
@@ -78,18 +68,15 @@
                         MD.NodeUtils.rad2deg(this.cube.rotation.z) % 360,
                     ];
                     this.animation.targets = this.positions[this.animation.target - 1];
-
                     this.animation.distance = [
                         this.animation.targets[0] - this.animation.starts[0],
                         this.animation.targets[1] - this.animation.starts[1],
                         this.animation.targets[2] - this.animation.starts[2],
                     ];
-
                     this.animation.first = true;
                 }
 
                 let rate = 1 - (left / 300);
-
                 this.cube.rotation.x = MD.NodeUtils.deg2rad(this.animation.starts[0] + rate * this.animation.distance[0]);
                 this.cube.rotation.y = MD.NodeUtils.deg2rad(this.animation.starts[1] + rate * this.animation.distance[1]);
                 this.cube.rotation.z = MD.NodeUtils.deg2rad(this.animation.starts[2] + rate * this.animation.distance[2]);
@@ -103,7 +90,6 @@
         face(val) {
             this.value = val;
             let vals = this.positions[val - 1];
-
             this.cube.rotation.z = MD.NodeUtils.deg2rad(vals[2]);
             this.cube.rotation.y = MD.NodeUtils.deg2rad(vals[1]);
             this.cube.rotation.x = MD.NodeUtils.deg2rad(vals[0]);
@@ -176,10 +162,10 @@
             this.scene.remove(this.group);
         }
 
-        // ✅ NEW METHOD: Set dice face instantly from console
+        // ✅ NEW: Manual control
         setFace(val) {
             this.face(val);
-            this.group.position.setY(this.position.y); // Reset to original height
+            this.group.position.setY(this.position.y);
             this.animation.on = false;
         }
     };
