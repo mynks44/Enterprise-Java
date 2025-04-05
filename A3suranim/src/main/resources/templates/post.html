@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Thread: ' + ${thread.title}">Thread</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; }
+        form { margin-top: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .back-btn { margin-bottom: 15px; display: inline-block; }
+    </style>
+</head>
+<body>
+
+    <a class="back-btn" th:href="@{/threads}">← Back to All Threads</a>
+
+    <h1 th:text="${thread.title}">Thread Title</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Author</th>
+                <th>Content</th>
+                <th>Posted At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="post : ${posts}">
+                <td th:text="${post.author}"></td>
+                <td th:text="${post.content}"></td>
+                <td th:text="${#dates.format(post.created, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form th:action="@{'/threads/' + ${thread.id} + '/post'}" method="post">
+        <textarea name="content" rows="4" cols="50" placeholder="Write your reply..." required></textarea><br>
+        <button type="submit">Reply</button>
+    </form>
+
+</body>
+</html>

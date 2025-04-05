@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Threads</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; }
+        form { margin-top: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>All Discussion Threads</h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <form th:action="@{/threads}" method="post">
+        <input type="text" name="title" placeholder="Start a new thread" required />
+        <button type="submit">Post</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Thread Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="thread : ${threads}">
+                <td>
+                    <a th:href="@{'/threads/' + ${thread.id}}" th:text="${thread.title}">Thread Title</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
